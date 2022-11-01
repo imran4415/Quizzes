@@ -1,0 +1,39 @@
+from replit import clear
+logo = '''
+                         ___________
+                         \         /
+                          )_______(
+                          |"""""""|_.-._,.---------.,_.-._
+                          |       | | |               | | ''-.
+                          |       |_| |_             _| |_..-'
+                          |_______| '-' `'---------'` '-'
+                          )"""""""(
+                         /_________\\
+                       .-------------.
+                      /_______________\\
+'''
+print(logo)
+bidders = True
+dict = {}
+while bidders:
+  name = input("Enter your name: ")
+  bid_price = int(input("Enter Your price for this profuct: $"))
+  dict1 = dict[name] = bid_price
+  a = input("Are there any other bidders? Type 'Yes' or 'No' : ")
+  
+  if a == "no" or a == "No":
+    bidders = False
+    
+  else:
+    clear()
+
+def bidding_func(dictionary):
+  highest_price = 0
+  for items in dictionary:
+    bid_cost = dictionary[items]
+    if bid_cost > highest_price:
+      highest_price = bid_cost
+      highest_bidder = items
+  print(f"The winner is {highest_bidder} with a bid of ${highest_price}")
+  
+bidding_func(dict)
