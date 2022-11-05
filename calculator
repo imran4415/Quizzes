@@ -1,0 +1,45 @@
+def add(n1, n2):
+  return n1 + n2
+
+def mult(n1, n2):
+  return n1 * n2
+
+def subs(n1, n2):
+  return n1 - n2
+
+def divide(n1, n2):
+  return n1 / n2
+
+
+dict1 = {
+  "+" : add,
+  "-" : subs,
+  "*" : mult,
+  "/" : divide
+}
+
+def calculator():
+  print(logo)
+  num1 = float(input("Enter first number : "))
+  
+  for items in dict1:
+    print(items)
+  
+  more_cal = True
+  while more_cal:
+    operation_symbol = input("Pick an operation: ")
+    num2 = float(input("Enter second number : "))
+  
+    calculation_key = dict1[operation_symbol]
+  
+    answer = calculation_key(num1,num2)
+  
+    print(f"{num1} {operation_symbol} {num2} = {answer}")
+  
+    more_calculation = input(f"type 'y' to continue calculating with {answer}, or type 'n' to exit : ")
+    if more_calculation == "y":
+      num1 = answer
+    else:
+      more_cal = False
+      calculator()
+calculator()
