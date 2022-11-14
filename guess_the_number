@@ -1,0 +1,51 @@
+import random
+print("Welcome to the Number Guessing Game!")
+print("I'm thinking of a number between 1 to 100.")
+game_mode = input("Choose a difficulty. Type 'easy' or 'hard' : ")
+attempts_hard = 5
+attempts_easy = 10
+play_game = True
+if game_mode == "hard":
+  randNo = random.randint(1, 100)
+  print(f"You have {attempts_hard} attempts remaining to guess the number")
+  while play_game:
+    attempts_hard -=1
+    guessNo = int(input("Guess a number : "))
+    if attempts_hard > 0:
+      if randNo == guessNo:
+        print(f"You got it! The answer was {guessNo}")
+        play_game = False
+      elif randNo > guessNo:
+        print("Too low")
+        print("Guess again.")
+        print(f"You have {attempts_hard} attempts remaining to guess the number")
+      elif randNo < guessNo:
+        print("Too high")
+        print("Guess again.")
+        print(f"You have {attempts_hard} attempts remaining to guess the number")
+    else:
+      play_game = False
+      print("You've run out of guesses, you lose.")
+elif game_mode == "easy":
+  randNo = random.randint(1, 100)
+  print(f"You have {attempts_easy} attempts remaining to guess the number")
+  while play_game:
+    attempts_easy -=1
+    guessNo = int(input("Guess a number : "))
+    if attempts_easy > 0:
+      if randNo == guessNo:
+        print(f"You got it! The answer was {guessNo}")
+        play_game = False
+      elif randNo > guessNo:
+        print("Too low")
+        print("Guess again.")
+        print(f"You have {attempts_easy} attempts remaining to guess the number")
+      elif randNo < guessNo:
+        print("Too high")
+        print("Guess again.")
+        print(f"You have {attempts_easy} attempts remaining to guess the number")
+    else:
+      play_game = False
+      print("You've run out of guesses, you lose.")
+else:
+  print("Type the right keyword.")
