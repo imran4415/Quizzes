@@ -1,0 +1,146 @@
+MENU = {
+    "espresso": {
+        "ingredients": {
+            "water": 50,
+            "coffee": 18,
+        },
+        "cost": 1.5,
+    },
+    "latte": {
+        "ingredients": {
+            "water": 200,
+            "milk": 150,
+            "coffee": 24,
+        },
+        "cost": 2.5,
+    },
+    "cappuccino": {
+        "ingredients": {
+            "water": 250,
+            "milk": 100,
+            "coffee": 24,
+        },
+        "cost": 3.0,
+    }
+}
+
+resources = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100,
+}
+
+machine_working = True
+
+water = resources["water"]
+milk = resources["milk"]
+coffee = resources["coffee"]
+money = 0
+
+
+def report():
+    print(f"Water: {water}ml")
+    print(f"Milk: {milk}ml")
+    print(f"Coffee: {coffee}gm")
+    print(f"Money: ${money}")
+
+
+def enter_money(cost, coffee_name):
+    global money
+    print(f"The cost of coffee is {cost}")
+    print("Please insert coins.")
+    quart = int(input("How many quarters?: "))
+    dime = int(input("How many dimes?: "))
+    nick = int(input("How many nickels?: "))
+    pennie = int(input("How many pennies?: "))
+    quart_val = quart * 0.25
+    dime_val = dime * 0.10
+    nick_val = nick * 0.05
+    pennie_val = pennie * 0.01
+    total_received = quart_val+dime_val+nick_val+pennie_val
+    if total_received >= cost:
+        money += cost
+        bal_money = round(total_received - cost, 2)
+        print(f"Here is your ${bal_money} in change.")
+        print(f"Here is your {coffee_name} enjoy!")
+        return "received"
+    else:
+        print("Sorry that's not enough money, money refunded.")
+
+
+def espresso():
+    global water
+    global coffee
+    if water >= 50 and coffee >= 18:
+        return "available"
+    elif water < 50 and coffee < 18:
+        print("Sorry! There's not enough water & coffee")
+    elif coffee < 18:
+        print("Sorry! There's not enough coffee")
+    elif water < 50:
+        print("Sorry! There's not enough water")
+
+
+def latte():
+    global water
+    global milk
+    global coffee
+    if water >= 200 and coffee >= 24 and milk >= 150:
+        return "available"
+    elif water < 200:
+        print("Sorry! There's not enough water.")
+    elif coffee < 24:
+        print("Sorry! There's not enough coffee.")
+    elif milk < 150:
+        print("Sorry! There's not enough milk.")
+
+
+def cappuccino():
+    global water
+    global milk
+    global coffee
+    if water >= 250 and coffee >= 24 and milk >= 100:
+        return "available"
+    elif water < 250:
+        print("Sorry! There's not enough water.")
+    elif coffee < 24:
+        print("Sorry! There's not enough coffee.")
+    elif milk < 100:
+        print("Sorry! There's not enough milk.")
+
+
+def update_item(item):
+    global MENU
+    global water
+    global milk
+    global coffee
+    global money
+    water = water - MENU[item]["ingredients"]["water"]
+    coffee = coffee - MENU[item]["ingredients"]["coffee"]
+    if "milk" in MENU:
+        milk = milk - MENU[item]["ingredients"]["milk"]
+
+
+while machine_working:
+    act = input("What would you like? (espresso/latte/cappuccino):").lower()
+    if act == "report":
+        report()
+    elif act == "espresso":
+        if espresso() == "available":
+            print("Yes, It's available")
+            enter_money(1.5, "Espresso")
+            update_item("espresso")
+    elif act == "latte":
+        if latte() == "available":
+            print("Yes, It's available")
+            enter_money(2.5, "Latte")
+            update_item("latte")
+    elif act == "cappuccino":
+        if cappuccino() == "available":
+            print("Yes, It's available")
+            enter_money(3.0, "Cappuccino")
+            update_item("cappuccino")
+    elif act == "off":
+        machine_working = False
+    else:
+        print("Enter valid keyword.")
